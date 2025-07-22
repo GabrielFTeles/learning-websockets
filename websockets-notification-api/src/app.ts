@@ -3,6 +3,7 @@ import cors from "cors";
 import { Server } from "socket.io";
 import { createServer } from "http";
 import { emitNotification, setupSocket } from "./socket/socket";
+import { env } from "./config/env";
 
 export const app = express();
 
@@ -23,8 +24,8 @@ const io = new Server(httpServer, {
 
 setupSocket(io);
 
-httpServer.listen(3333, () => {
-    console.log("Servidor rodando em http://localhost:3333");
+httpServer.listen(env.PORT, () => {
+    console.log(`WebSocket server running in http://localhost:${env.PORT}`);
 });
 
 type Notification = {
