@@ -62,7 +62,7 @@ export function Notifications() {
     });
 
     return (
-        <Popover>
+        <Popover defaultOpen>
             <PopoverTrigger asChild>
                 <Button variant="outline" className="h-12 w-12">
                     <Bell className="size-5" />
