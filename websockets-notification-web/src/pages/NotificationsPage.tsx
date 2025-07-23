@@ -54,8 +54,8 @@ export function NotificationsPage() {
                         This is a learning project focused on real-time
                         communication using WebSockets. It demonstrates how to
                         send and receive live notifications instantly,
-                        simulating scenarios like. Built with simplicity in mind
-                        for educational purposes.
+                        simulating scenarios. Built with simplicity in mind for
+                        educational purposes.
                     </p>
                 </div>
 
