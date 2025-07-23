@@ -2,7 +2,9 @@ import "dotenv/config";
 import { z } from "zod";
 
 const envSchema = z.object({
+    NODE_ENV: z.enum(["dev", "production"]),
     PORT: z.coerce.number().default(3333),
+    FRONT_URL: z.url(),
 });
 
 const _env = envSchema.safeParse(process.env);
