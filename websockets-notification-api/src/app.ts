@@ -47,13 +47,13 @@ const notificationRequestSchema = z.object({
             .max(100, "Author name must be at most 100 characters."),
 
         avatar_url: z
-            .url("Invalid avatar URL.")
+            .string()
             .max(300, "Avatar URL must be at most 300 characters.")
             .optional(),
     }),
 });
 
-app.post("/notification", (req, res) => {
+app.post("/notifications", (req, res) => {
     const parsed = notificationRequestSchema.safeParse(req.body);
 
     if (!parsed.success) {
