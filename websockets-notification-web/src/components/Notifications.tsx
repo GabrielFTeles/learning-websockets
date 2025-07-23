@@ -5,6 +5,7 @@ import { useSocket } from "@/hooks/useSocket";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { formatDistanceToNow } from "date-fns";
+import { ScrollArea } from "./ui/scroll-area";
 
 type Notification = {
     id: string;
@@ -27,7 +28,7 @@ const NotificationItem = ({ data }: { data: NotificationItemProps }) => {
             onClick={() => {
                 data.onMarkAsRead(data.id);
             }}
-            className="w-full flex gap-3 hover:bg-accent transition-colors p-3 rounded"
+            className="w-full flex gap-3 hover:bg-accent transition-colors p-3 rounded cursor-pointer"
         >
             <div className="relative">
                 <Avatar>
@@ -40,7 +41,10 @@ const NotificationItem = ({ data }: { data: NotificationItemProps }) => {
 
             <div className="space-y-2">
                 <div className="flex text-xs gap-1.5 items-center">
-                    <h3 className="font-medium text-lime-400">
+                    <h3
+                        title={data.author.name}
+                        className="font-medium text-lime-400 max-w-[90px] truncate"
+                    >
                         {data.author.name}
                     </h3>
                     <span className="text-muted-foreground">•</span>
@@ -55,7 +59,7 @@ const NotificationItem = ({ data }: { data: NotificationItemProps }) => {
                         </span>
                     )}
                 </div>
-                <p className="text-sm">{data.message}</p>
+                <p className="text-sm line-clamp-3">{data.message}</p>
             </div>
         </li>
     );
@@ -107,14 +111,21 @@ export function Notifications() {
                 </Button>
             </PopoverTrigger>
             <PopoverContent side="right" className="w-[350px]">
-                <ul className="flex flex-col items-center">
-                    {notifications.map((notification, index) => (
-                        <NotificationItem
-                            key={index}
-                            data={{ ...notification, onMarkAsRead: markAsRead }}
-                        />
-                    ))}
-                </ul>
+                <ScrollArea>
+                    <div className="max-h-[400px]">
+                        <ul className="flex flex-col items-center">
+                            {notifications.map((notification) => (
+                                <NotificationItem
+                                    key={notification.id}
+                                    data={{
+                                        ...notification,
+                                        onMarkAsRead: markAsRead,
+                                    }}
+                                />
+                            ))}
+                        </ul>
+                    </div>
+                </ScrollArea>
             </PopoverContent>
         </Popover>
     );
