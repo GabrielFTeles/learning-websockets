@@ -1,10 +1,5 @@
-import { BrowserRouter } from "react-router-dom";
-import { AppRoutes } from "./routes";
+import { NotificationsPage } from "./pages/NotificationsPage";
 
 export function App() {
-    return (
-        <BrowserRouter>
-            <AppRoutes />
-        </BrowserRouter>
-    );
+    return <NotificationsPage />;
 }
