@@ -23,12 +23,15 @@ const io = new Server(httpServer, {
     cors: {
         origin: env.NODE_ENV === "production" ? env.FRONT_URL : "*",
     },
+    path: "/notifications",
 });
 
 setupSocket(io);
 
 httpServer.listen(env.PORT, () => {
-    console.log(`WebSocket server running in http://localhost:${env.PORT}`);
+    console.log(
+        `WebSocket server running in ws://localhost:${env.PORT}/notifications`
+    );
 });
 
 const notificationRequestSchema = z.object({
