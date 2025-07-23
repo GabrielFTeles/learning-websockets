@@ -4,6 +4,7 @@ import { Server } from "socket.io";
 import { createServer } from "http";
 import { emitNotification, setupSocket } from "./socket/socket";
 import { env } from "./config/env";
+import type { Notification } from "./types/notification";
 
 export const app = express();
 
@@ -28,25 +29,18 @@ httpServer.listen(env.PORT, () => {
     console.log(`WebSocket server running in http://localhost:${env.PORT}`);
 });
 
-type Notification = {
-    author: {
-        name: string;
-        avatar_url?: string;
-    };
-    message: string;
-    created_at: string;
-};
-
 app.post("/test", (req, res) => {
     console.log(req.body);
 
     emitNotification<Notification>({
+        id: "aaa",
         author: {
             name: "shadcn",
             avatar_url: "https://github.com/shadcn.png",
         },
         message: req.body.message,
         created_at: new Date().toString(),
+        read: false,
     });
 
     res.send("worked!");
